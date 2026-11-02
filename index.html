@@ -1,11 +1,230 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Jenkins CI/CD Project</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to My Website</title>
+
+<style>
+    * { box-sizing: border-box; }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 35px 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #48b6f5, #a56af5);
+        color: #233f70;
+        transition: background 0.3s, color 0.3s;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 780px;
+        padding: 35px 28px;
+        text-align: center;
+        background: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.16);
+    }
+
+    .rocket {
+        font-size: 65px;
+        margin-bottom: 8px;
+    }
+
+    h1 {
+        margin: 10px 0 20px;
+        font-size: 38px;
+        overflow-wrap: anywhere;
+    }
+
+    .subtitle {
+        font-size: 21px;
+        font-weight: bold;
+        color: #334155;
+    }
+
+    .description {
+        color: #64748b;
+        line-height: 1.7;
+    }
+
+    .customizer {
+        max-width: 780px;
+        padding: 25px 28px;
+        text-align: left;
+    }
+
+    .customizer h2 {
+        margin-top: 0;
+        font-size: 22px;
+    }
+
+    .controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .swatches {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .swatch {
+        width: 27px;
+        height: 27px;
+        border: 2px solid white;
+        outline: 1px solid #cbd5e1;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .swatch:focus {
+        outline: 3px solid #2563eb;
+        outline-offset: 2px;
+    }
+
+    select, input[type="color"] {
+        width: 100%;
+        min-height: 40px;
+        padding: 5px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+    }
+
+    .apply {
+        display: block;
+        margin: 25px auto 0;
+        padding: 13px 25px;
+        border: 0;
+        border-radius: 10px;
+        background: #2878ed;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .apply:hover { background: #165dcc; }
+
+    @media (max-width: 600px) {
+        .controls { grid-template-columns: 1fr; }
+        h1 { font-size: 30px; }
+        .card { padding: 28px 18px; }
+    }
+</style>
 </head>
+
 <body>
-    <h1>Jenkins CI/CD Pipeline</h1>
-    <p>My website is built and deployed using Docker.</p>
+    <main class="card">
+        <div class="rocket" aria-hidden="true">🚀</div>
+        <h1 id="heading">Welcome to My Website!</h1>
+        <p class="subtitle" id="subtitle">
+            This is my website, built and deployed using Jenkins CI/CD.
+        </p>
+        <p class="description" id="description">
+            Explore my project. The website is running inside a Docker container.
+        </p>
+    </main>
+
+    <section class="card customizer">
+        <h2>⚙️ Customize Your Website</h2>
+
+        <div class="controls">
+            <div>
+                <label for="backgroundColor">Background Color</label>
+                <div class="swatches">
+                    <button class="swatch" style="background:#48b6f5"
+                        data-color="#48b6f5" aria-label="Blue background"></button>
+                    <button class="swatch" style="background:#8b5cf6"
+                        data-color="#8b5cf6" aria-label="Purple background"></button>
+                    <button class="swatch" style="background:#22a06b"
+                        data-color="#22a06b" aria-label="Green background"></button>
+                    <button class="swatch" style="background:#f59e0b"
+                        data-color="#f59e0b" aria-label="Orange background"></button>
+                    <button class="swatch" style="background:#ec4899"
+                        data-color="#ec4899" aria-label="Pink background"></button>
+                    <button class="swatch" style="background:#64748b"
+                        data-color="#64748b" aria-label="Grey background"></button>
+                </div>
+                <input type="color" id="backgroundColor"
+                    value="#48b6f5" aria-label="Choose custom background color">
+            </div>
+
+            <div>
+                <label for="textColor">Heading Color</label>
+                <div class="swatches">
+                    <button class="swatch" style="background:#233f70"
+                        data-text="#233f70" aria-label="Navy text"></button>
+                    <button class="swatch" style="background:#111827"
+                        data-text="#111827" aria-label="Black text"></button>
+                    <button class="swatch" style="background:#7e22ce"
+                        data-text="#7e22ce" aria-label="Purple text"></button>
+                    <button class="swatch" style="background:#15803d"
+                        data-text="#15803d" aria-label="Green text"></button>
+                    <button class="swatch" style="background:#ea580c"
+                        data-text="#ea580c" aria-label="Orange text"></button>
+                </div>
+                <input type="color" id="textColor"
+                    value="#233f70" aria-label="Choose custom heading color">
+            </div>
+
+            <div>
+                <label for="fontSize">Heading Font Size</label>
+                <select id="fontSize">
+                    <option value="28px">28 px</option>
+                    <option value="34px">34 px</option>
+                    <option value="38px" selected>38 px</option>
+                    <option value="44px">44 px</option>
+                    <option value="52px">52 px</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="apply" id="applyChanges">↻ Apply Changes</button>
+    </section>
+
+<script>
+    const backgroundPicker = document.getElementById("backgroundColor");
+    const textPicker = document.getElementById("textColor");
+    const fontPicker = document.getElementById("fontSize");
+
+    document.querySelectorAll("[data-color]").forEach(button => {
+        button.addEventListener("click", () => {
+            backgroundPicker.value = button.dataset.color;
+        });
+    });
+
+    document.querySelectorAll("[data-text]").forEach(button => {
+        button.addEventListener("click", () => {
+            textPicker.value = button.dataset.text;
+        });
+    });
+
+    document.getElementById("applyChanges").addEventListener("click", () => {
+        document.body.style.background =
+            `linear-gradient(135deg, ${backgroundPicker.value}, #a56af5)`;
+
+        document.getElementById("heading").style.color = textPicker.value;
+        document.getElementById("heading").style.fontSize = fontPicker.value;
+    });
+</script>
 </body>
 </html>

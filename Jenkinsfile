@@ -2,27 +2,55 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER = 'C:\\Users\\farma\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe'
+    }
+
     stages {
+        stage('Prepare') {
+            steps {
+                echo 'Creating Website Files'
+                writeFile file: 'index.html', text: '''<!DOCTYPE html>
+<html>
+<head>
+    <title>Jenkins CI/CD Demo</title>
+</head>
+<body>
+    <h1>Welcome to Jenkins CI/CD</h1>
+    <p>Application built and tested using Docker.</p>
+</body>
+</html>
+'''
+                writeFile file: 'Dockerfile', text: '''FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/index.html
+EXPOSE 80
+'''
+            }
+        }
+
         stage('Build') {
             steps {
-                bat '"C:\\Users\\farma\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" build -t jenkins-cicd-project .'
+                echo 'Building Docker Image'
+                bat '"%DOCKER%" build -t jenkins-demo .'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'docker rm -f jenkins-test 2>nul || exit /b 0'
-                bat 'docker run -d --name jenkins-test -p 8082:80 jenkins-cicd-project'
-                bat 'timeout /t 5 /nobreak'
-                bat 'curl.exe -f http://localhost:8082'
-                bat 'docker rm -f jenkins-test'
+                echo 'Testing Application'
+                bat '"%DOCKER%" rm -f test-container 2>nul & ver >nul'
+                bat '"%DOCKER%" run -d --name test-container -p 18081:80 jenkins-demo'
+                bat 'ping -n 6 127.0.0.1 > nul'
+                bat 'curl.exe --fail http://localhost:18081'
+                bat '"%DOCKER%" rm -f test-container'
             }
         }
 
         stage('Deploy') {
             steps {
-                bat 'docker rm -f jenkins-cicd-project 2>nul || exit /b 0'
-                bat 'docker run -d --restart unless-stopped --name jenkins-cicd-project -p 8083:80 jenkins-cicd-project'
+                echo 'Deploying Application'
+                bat '"%DOCKER%" rm -f jenkins-deployed 2>nul & ver >nul'
+                bat '"%DOCKER%" run -d --restart unless-stopped --name jenkins-deployed -p 18082:80 jenkins-demo'
             }
         }
     }
