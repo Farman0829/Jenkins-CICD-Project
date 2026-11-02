@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat 'docker build -t jenkins-cicd-project .'
+                bat '"C:\\Users\\farma\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" build -t jenkins-cicd-project .'
             }
         }
 
